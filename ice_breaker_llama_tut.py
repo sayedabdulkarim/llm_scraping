@@ -3,9 +3,11 @@ from langchain_ollama.llms import OllamaLLM
 from langchain_ollama import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 
+from linkedin import scrape_linkedin_profile
+
 # Define the prompt template
 summary_template = """
-Given the information {information} about a person, create:
+Given the Linkedin information {information} about a person, create:
 1. A short summary.
 2. Two interesting facts about them.
 """
@@ -34,10 +36,12 @@ llm = ChatOllama(
 chain = summary_prompt_template | llm | StrOutputParser()
 
 # Input data for the prompt
-information = "Albert Einstein was a theoretical physicist who developed the theory of relativity."
+# information = "Albert Einstein was a theoretical physicist who developed the theory of relativity."
+
+linkedin_data = scrape_linkedin_profile(linkedin_profile_url='https://www.linkedin.com/in/sayed4747/', mock=True)
 
 # Invoke the chain
-res = chain.invoke(input={"information": information})
+res = chain.invoke(input={"information": linkedin_data})
 
 # Print the response
 print(res)
