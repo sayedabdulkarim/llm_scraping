@@ -10,6 +10,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_ollama.llms import OllamaLLM
 
+os.environ["TAVILY_API_KEY"] = "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"
+
 def get_profile_url_tavily(name: str):
     search = TavilySearchResults()
     res = search.run(f"{name}")
